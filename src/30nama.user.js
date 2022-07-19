@@ -2,7 +2,7 @@
 // @name         30nama Custom DL list order
 // @description  Userscript helpers for 30nama
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.1.0
+// @version      0.1.1
 // @author       Yedoost
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -36,10 +36,12 @@
 
 
     window.addEventListener('locationchange', function(){
-        urlChanged(window.location.href);
+        urlChanged();
     })
 
     function urlChanged(url){
+        var url = window.location.href
+
         // call dlorder function if url contains ?section=download
         if(url.indexOf('?section=download') > -1){
             setTimeout(dlorder, 500);
