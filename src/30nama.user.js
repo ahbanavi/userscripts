@@ -5,6 +5,7 @@
 // @version      0.1.0
 // @author       Yedoost
 // @homepage     https://github.com/ahbanavi/userscripts
+// @supportURL   https://github.com/ahbanavi/userscripts/issues
 // @match        https://30nama.com/*
 // @iconURL      https://30nama.com/favicon.ico
 // @license      MIT
