@@ -2,7 +2,7 @@
 // @name         30nama Custom DL list order
 // @description  Userscript helpers for 30nama
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.1.2
+// @version      0.2.0
 // @author       Yedoost
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -44,6 +44,11 @@
     // call dlorder function if url contains ?section=download
     if (url.indexOf("?section=download") > -1) {
       setTimeout(dlorder, 500);
+    }
+
+    // call addTrakt if url contains /movie/ or /series/ or /anime/
+    if (url.indexOf("/movie/") > -1 || url.indexOf("/series/") > -1 || url.indexOf("/anime/") > -1) {
+      setTimeout(addTrakt, 500);
     }
   }
 
@@ -93,5 +98,33 @@
         }
       }
     }
+  }
+
+  // function to extract imdb id from url
+  function getImdbId(url) {
+    var imdbId = url.split("/")[4];
+    return imdbId;
+  }
+
+  function addTrakt() {
+    // if we already have trakt button, don't add it again
+    if (document.querySelector("#trakt-button")) {
+      return;
+    }
+    console.log("30nama Custom Trakt Button Loaded!");
+
+    // get imdb id
+    var imdb_icon = document.querySelector("a img[alt='imdb-icon']");
+    var imdb_href = imdb_icon.parentNode.parentNode.href;
+    var imdb_id = getImdbId(imdb_href);
+
+    // get ul with class='ratings figcaption-child'
+    var ratings = document.querySelector("ul.ratings.figcaption-child");
+    // add trakt ui to the end of the list
+    var trakt_ui = document.createElement("li");
+
+    // prettier-ignore
+    trakt_ui.innerHTML = '<section id="trakt-button" class="ratings big" data-v-5c885ed8="" data-v-029448d2="" style="margin-top: 4px;"><a href="https://trakt.tv/search/imdb/' + imdb_id + '" target="_blank" data-v-5c885ed8=""><div class="counts" data-v-5c885ed8=""><p class="bd-sm" data-v-5c885ed8=""></p><!----></div> <div class="img-wrapper" data-v-5c885ed8=""><img src="https://walter.trakt.tv/hotlink-ok/public/favicon.ico" alt="trakt-icon" data-v-5c885ed8=""></div></a></section>';
+    ratings.appendChild(trakt_ui);
   }
 })();
