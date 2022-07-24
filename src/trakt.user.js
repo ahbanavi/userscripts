@@ -7,7 +7,7 @@
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
 // @match        https://trakt.tv/movies/*
-// @match        https://trakt.tv/shows/*/
+// @match        https://trakt.tv/shows/*
 // @iconURL      https://walter.trakt.tv/hotlink-ok/public/favicon.ico
 // @license      MIT
 // @grant        none
