@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         30nama Custom DL list order
+// @name         30nama Tools
 // @description  Userscript helpers for 30nama
 // @namespace    https://github.com/ahbanavi/userscripts
 // @version      0.2.0
-// @author       Yedoost
+// @author       ahbanavi
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
 // @match        https://30nama.com/*
@@ -55,7 +55,7 @@
   urlChanged();
 
   function dlorder() {
-    console.log("30nama Custom DL Order Loaded!");
+    console.log("> 30nama Tools: Custom DL Order Loaded!");
     // wait untill all divs with skeleton-bar class are disappeared
     function w8forSkeletonBarRemoved() {
       var targetNodes = document.querySelectorAll("div.skeleton-bar");
@@ -111,7 +111,7 @@
     if (document.querySelector("#trakt-button")) {
       return;
     }
-    console.log("30nama Custom Trakt Button Loaded!");
+    console.log("> 30nama Tools: Trakt Button Loaded!");
 
     // get imdb id
     var imdb_icon = document.querySelector("a img[alt='imdb-icon']");
