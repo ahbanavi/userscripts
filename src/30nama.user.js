@@ -2,7 +2,7 @@
 // @name         30nama Tools
 // @description  Userscript helpers for 30nama
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.2.0
+// @version      0.3.0
 // @author       ahbanavi
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -48,6 +48,7 @@
 
     // call addTrakt if url contains /movie/ or /series/ or /anime/
     if (url.indexOf("/movie/") > -1 || url.indexOf("/series/") > -1 || url.indexOf("/anime/") > -1) {
+      setTimeout(loadDL, 500);
       setTimeout(addTrakt, 500);
     }
   }
@@ -86,10 +87,8 @@
       // reverse the list
       all_blocks = Array.prototype.slice.call(all_blocks).reverse();
 
-      var psa_count = 0;
       for (i = 0; i < all_blocks.length; i++) {
         if (all_blocks[i].innerHTML.indexOf("PSA") > -1) {
-          psa_count++;
           // move this block to the top of the page
           var psa_block = all_blocks[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
           var page_block = psa_block.parentNode.parentNode;
@@ -126,5 +125,19 @@
     // prettier-ignore
     trakt_ui.innerHTML = '<section id="trakt-button" class="ratings big" data-v-5c885ed8="" data-v-029448d2="" style="margin-top: 4px;"><a href="https://trakt.tv/search/imdb/' + imdb_id + '" target="_blank" data-v-5c885ed8=""><div class="counts" data-v-5c885ed8=""><p class="bd-sm" data-v-5c885ed8=""></p><!----></div> <div class="img-wrapper" data-v-5c885ed8=""><img src="https://walter.trakt.tv/hotlink-ok/public/favicon.ico" alt="trakt-icon" data-v-5c885ed8=""></div></a></section>';
     ratings.appendChild(trakt_ui);
+  }
+
+  function loadDL() {
+    // get a tag with id="download"
+    var download = document.getElementById("download");
+
+    if (download.used) {
+      return;
+    }
+
+    download.click();
+
+    // add a parameter to dlbt to prevent calling dlbt again
+    download.used = true;
   }
 })();
