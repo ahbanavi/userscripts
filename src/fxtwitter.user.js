@@ -2,7 +2,7 @@
 // @name         fxtwitter share
 // @description  Userscript helpers for fxtwitter
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.1.0
+// @version      0.1.1
 // @author       ahbanavi
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -26,7 +26,20 @@
   shareButton.addEventListener("click", () => {
     const url = window.location.href;
     // change url to fxtwitter.com
-    const fxtwitterUrl = url.replace("twitter.com", "fxtwitter.com");
+    const fxtwitterUrl = url.replace("twitter.com", "fixupx.com");
+    navigator.clipboard.writeText(fxtwitterUrl);
+    shareButton.textContent = "Copied!";
+    setTimeout(() => {
+      shareButton.textContent = "Share";
+    }, 2000);
+  });
+
+  // add listener for right click
+  shareButton.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+
+    const url = window.location.href;
+    const fxtwitterUrl = url.replace("twitter.com", "i.fixupx.com");
     navigator.clipboard.writeText(fxtwitterUrl);
     shareButton.textContent = "Copied!";
     setTimeout(() => {
