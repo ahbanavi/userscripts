@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Trakt to 30nama
+// @name         Trakt to Others
 // @description  Userscript helpers for trakt
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.1.0
+// @version      0.2.0
 // @author       ahbanavi
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -14,33 +14,63 @@
 // ==/UserScript==
 
 (function () {
-  "use strict";
+  ("use strict");
 
   if (window.location.href.indexOf("/episodes/") > -1) {
     return;
   }
 
-  console.log("> Trakt to 30nama Loaded!");
+  console.log("> Trakt to Others Loaded!");
 
   function getImdbId(url) {
     var imdbId = url.split("/")[4];
     return imdbId;
   }
 
-  // get href from a tag with id = 'external-link-imdb'
   var imdbHref = document.querySelector("#external-link-imdb").href;
   var imdbId = getImdbId(imdbHref);
 
-  // get li from ul with class "external"
+  var title = document.querySelector('meta[property="og:title"]').content;
+
   var external = document.querySelector("ul.external");
   var li = external.querySelector("li");
 
-  // add a tag to li
-  var a = document.createElement("a");
-  a.href = "https://30nama.com/search?q=" + imdbId;
-  a.target = "_blank";
-  a.innerHTML = "30nama";
+  var cnama = document.createElement("a");
+  cnama.href = "https://30nama.com/search?q=" + imdbId;
+  cnama.target = "_blank";
+  cnama.innerHTML = "30nama";
 
-  // append first before first a tag in li
-  li.insertBefore(a, li.firstChild);
+  var nyaa = document.createElement("a");
+  nyaa.href = "https://nyaa.si/?f=0&c=0_0&q=" + title;
+  nyaa.target = "_blank";
+  nyaa.innerHTML = "nyaa";
+
+  // add form for subscene
+  var form = document.createElement("form");
+  form.method = "post";
+  form.action = "https://subscene.com/subtitles/searchbytitle";
+  form.target = "_blank";
+  form.style.display = "none";
+
+  // add title input
+  var titleInput = document.createElement("input");
+  titleInput.type = "text";
+  titleInput.name = "query";
+  titleInput.value = title;
+  form.appendChild(titleInput);
+
+  // add form to body
+  document.body.appendChild(form);
+
+  var subscene = document.createElement("a");
+  subscene.href = "https://subscene.com/subtitles/searchbytitle";
+  subscene.target = "_blank";
+  subscene.innerHTML = "subscene";
+  subscene.onclick = function () {
+    form.submit();
+  };
+
+  li.insertBefore(subscene, li.firstChild);
+  li.insertBefore(nyaa, li.firstChild);
+  li.insertBefore(cnama, li.firstChild);
 })();
