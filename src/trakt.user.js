@@ -2,7 +2,7 @@
 // @name         Trakt to Others
 // @description  Userscript helpers for trakt
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.2.0
+// @version      0.2.1
 // @author       ahbanavi
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -66,7 +66,8 @@
   subscene.href = "https://subscene.com/subtitles/searchbytitle";
   subscene.target = "_blank";
   subscene.innerHTML = "subscene";
-  subscene.onclick = function () {
+  subscene.onclick = function (e) {
+    e.preventDefault();
     form.submit();
   };
 
