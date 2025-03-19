@@ -2,7 +2,7 @@
 // @name         Trakt to Others
 // @description  Userscript helpers for trakt
 // @namespace    https://github.com/ahbanavi/userscripts
-// @version      0.2.1
+// @version      0.2.2
 // @author       ahbanavi
 // @homepage     https://github.com/ahbanavi/userscripts
 // @supportURL   https://github.com/ahbanavi/userscripts/issues
@@ -45,33 +45,12 @@
   nyaa.target = "_blank";
   nyaa.innerHTML = "nyaa";
 
-  // add form for subscene
-  var form = document.createElement("form");
-  form.method = "post";
-  form.action = "https://subscene.com/subtitles/searchbytitle";
-  form.target = "_blank";
-  form.style.display = "none";
+  var subsource = document.createElement("a");
+  subsource.href = "https://subsource.net/search/" + imdbId;
+  subsource.target = "_blank";
+  subsource.innerHTML = "subsource"
 
-  // add title input
-  var titleInput = document.createElement("input");
-  titleInput.type = "text";
-  titleInput.name = "query";
-  titleInput.value = title;
-  form.appendChild(titleInput);
-
-  // add form to body
-  document.body.appendChild(form);
-
-  var subscene = document.createElement("a");
-  subscene.href = "https://subscene.com/subtitles/searchbytitle";
-  subscene.target = "_blank";
-  subscene.innerHTML = "subscene";
-  subscene.onclick = function (e) {
-    e.preventDefault();
-    form.submit();
-  };
-
-  li.insertBefore(subscene, li.firstChild);
+  li.insertBefore(subsource, li.firstChild);
   li.insertBefore(nyaa, li.firstChild);
   li.insertBefore(cnama, li.firstChild);
 })();
